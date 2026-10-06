@@ -1,0 +1,14 @@
+{
+  "name": "coupled-tags",
+  "description": "Adds greppable comments linking code/values that must change together but can't share a source of truth. Includes a lint script.",
+  "owner": {
+    "name": "Ian Flanagan"
+  },
+  "plugins": [
+    {
+      "name": "coupled-tags",
+      "source": "./",
+      "description": "Adds greppable comments linking code/values that must change together but can't share a source of truth. Includes a lint script."
+    }
+  ]
+}

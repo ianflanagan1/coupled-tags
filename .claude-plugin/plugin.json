@@ -1,0 +1,11 @@
+{
+  "name": "coupled-tags",
+  "description": "Adds greppable comments linking code/values that must change together but can't share a source of truth. Includes a lint script.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Ian Flanagan"
+  },
+  "homepage": "https://github.com/ianflanagan1/coupled-tags",
+  "repository": "https://github.com/ianflanagan1/coupled-tags",
+  "license": "MIT"
+}
