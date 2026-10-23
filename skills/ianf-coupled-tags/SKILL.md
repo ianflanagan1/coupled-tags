@@ -1,5 +1,5 @@
 ---
-name: coupled-tags
+name: ianf-coupled-tags
 description: Add COUPLED:<key>. comments linking values or code that must change together but can't share a single source of truth. Before editing anything tagged COUPLED:, update every site.
 argument-hint: <this> with <that> [as <key>]
 ---
@@ -75,7 +75,7 @@ function validatePassword(value) { ... }
 
 Nobody can grep the far end of an external coupling, so the repo needs a record of it. Keep the **current** configuration of each external system in `docs/external/<service>.md`: what is set, where, and for which environment. Put the same `COUPLED:<key>.` tag beside each value in that doc. Create or update it whenever an external coupling is added or changed. Leave visible TODOs for values you cannot see.
 
-## Adding a coupling (`/coupled-tags $ARGUMENTS`)
+## Adding a coupling (`/ianf-coupled-tags $ARGUMENTS`)
 
 1. Settle the key (see above).
 2. Find every site, not only the ones named. Grep for the literal value and related names across dev and prod configs, build files, app code and docs.

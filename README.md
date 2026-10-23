@@ -127,7 +127,7 @@ When the other end lives outside the repo (a cloud console, DNS, a provider's da
 
 ## Lint
 
-`skills/coupled-tags/scripts/coupled-tags-lint.sh` is POSIX `sh` and runs anywhere. It reports:
+`skills/ianf-coupled-tags/scripts/coupled-tags-lint.sh` is POSIX `sh` and runs anywhere. It reports:
 
 - **malformed tags:** the key has uppercase letters or underscores, or is missing the `.`
 - **orphan keys:** the key appears only once, which usually means the other end was deleted
@@ -144,33 +144,32 @@ It does **not** check that changes to a key touch every site. Diff-aware enforce
 
 ## Claude Code
 
-The `coupled-tags` skill teaches Claude the convention:
+The `ianf-coupled-tags` skill teaches Claude the convention:
 
-- **Adding:** `/coupled-tags <this> with <that> [as <key>]`. Claude finds every site, tags each one, checks the relations hold and runs the lint script. If you don't give a key, it proposes one and waits for your choice.
+- **Adding:** `/ianf-coupled-tags <this> with <that> [as <key>]`. Claude finds every site, tags each one, checks the relations hold and runs the lint script. If you don't give a key, it proposes one and waits for your choice.
 - **Honouring:** before editing anything tagged `COUPLED:`, Claude greps the key and updates every site.
 
-Install it as a plugin:
+Clone to `~/projects/claude/coupled-tags`, then link the skill into your skills folder:
 
+```sh
+ln -s ~/projects/claude/coupled-tags/skills/ianf-coupled-tags ~/.claude/skills/ianf-coupled-tags
 ```
-/plugin marketplace add ianflanagan1/claude-coupled-tags
-/plugin install coupled-tags@coupled-tags
-```
 
-Plugin skills are namespaced, so it's invoked as `/coupled-tags:coupled-tags`.
+It's invoked as `/ianf-coupled-tags`. The `ianf-` prefix keeps it from colliding with other skills of the same name.
 
-You can vendor it instead, so collaborators get it with the repo: copy `skills/coupled-tags/` to `.claude/skills/coupled-tags/` in your project, and it's invoked as `/coupled-tags`. Don't install it both ways at once, or Claude will see the skill twice.
+You can vendor it instead, so collaborators get it with the repo: copy `skills/ianf-coupled-tags/` to `.claude/skills/ianf-coupled-tags/` in your project. Don't install it both ways at once, or Claude will see the skill twice.
 
 Recommended line for your project's `CLAUDE.md`. A skill's description doesn't guarantee Claude loads it just because it's editing a tagged line; this does:
 
 ```
-Before changing anything tagged `COUPLED:<key>.`, grep the key and update every site (see the coupled-tags skill).
+Before changing anything tagged `COUPLED:<key>.`, grep the key and update every site (see the ianf-coupled-tags skill).
 ```
 
 ## Other agents
 
-The convention and the lint script don't depend on any agent. `skills/coupled-tags/SKILL.md` uses the [Agent Skills](https://agentskills.io) format, so other agents that support skills can load it.
+The convention and the lint script don't depend on any agent. `skills/ianf-coupled-tags/SKILL.md` uses the [Agent Skills](https://agentskills.io) format, so other agents that support skills can load it.
 
-- **Agents that support skills:** copy `skills/coupled-tags/` into your agent's skills directory (see its docs for the location). Keep the folder intact, so `scripts/coupled-tags-lint.sh` stays alongside `SKILL.md`. Slash-command arguments may behave differently, so just ask the agent in plain language, for example "couple the nginx upload limit with the app's `MAX_UPLOAD_MB`".
+- **Agents that support skills:** copy `skills/ianf-coupled-tags/` into your agent's skills directory (see its docs for the location). Keep the folder intact, so `scripts/coupled-tags-lint.sh` stays alongside `SKILL.md`. Slash-command arguments may behave differently, so just ask the agent in plain language, for example "couple the nginx upload limit with the app's `MAX_UPLOAD_MB`".
 - **Any agent:** add this to your project's `AGENTS.md` (or the agent's equivalent instructions file):
 
   ```
