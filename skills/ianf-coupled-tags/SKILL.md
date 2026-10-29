@@ -3,6 +3,7 @@ name: ianf-coupled-tags
 description: Add COUPLED:<key>. comments linking values or code that must change together but can't share a single source of truth. Before editing anything tagged COUPLED:, update every site.
 argument-hint: <this> with <that> [as <key>]
 disable-model-invocation: false
+model: inherit
 ---
 
 # COUPLED tags
