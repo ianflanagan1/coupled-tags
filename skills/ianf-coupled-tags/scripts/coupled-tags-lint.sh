@@ -16,7 +16,7 @@
 #
 # Exit status: 0 clean, 1 problems found, 2 usage error.
 
-set -eu
+set -o errexit -o nounset
 
 usage() {
     sed -n '8,11p' "$0" | sed 's/^# \{0,1\}//'
@@ -46,10 +46,10 @@ esac
 
 # Tracked and untracked-but-not-ignored files in a git work tree; plain grep otherwise.
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    search() { git grep --untracked -I -n -F 'COUPLED:' -- . || true; }
+    search() { git grep --untracked -I --line-number --fixed-strings 'COUPLED:' -- . || true; }
 else
     search() {
-        grep -r -I -n -F 'COUPLED:' --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor . \
+        grep --recursive -I --line-number --fixed-strings 'COUPLED:' --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor . \
             | sed 's|^\./||' || true
     }
 fi

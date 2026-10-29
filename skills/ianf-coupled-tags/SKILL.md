@@ -15,7 +15,7 @@ Some things must change together but cannot share a single source of truth: a ru
 <value or code>    <comment> COUPLED:<key>. <relation from this site's point of view>
 ```
 
-- `<key>`: lowercase `[a-z0-9-]`. One key per group, so `grep -rn 'COUPLED:<key>\.'` shows every site.
+- `<key>`: lowercase `[a-z0-9-]`. One key per group, so `grep --recursive --line-number 'COUPLED:<key>\.'` shows every site.
 - `.` terminates the key, which makes that grep exact.
 - `<relation>`: `<op> <component>:<thing>`. Always write one, even if it is only `=`. A component is a short name for the file or system holding the other site (`nginx`, `docker`, `ci`, `app`, `google-console`).
 - Use the file's own comment syntax. Placement:
@@ -80,7 +80,7 @@ Nobody can grep the far end of an external coupling, so the repo needs a record 
 
 1. Settle the key (see above).
 2. Find every site, not only the ones named. Grep for the literal value and related names across dev and prod configs, build files, app code and docs.
-3. Reuse an existing key if this group already has one (`grep -rn 'COUPLED:'`).
+3. Reuse an existing key if this group already has one (`grep --recursive --line-number 'COUPLED:'`).
 4. Tag each site with the relation from its own perspective.
 5. Check that the relations hold now. Report any violations to the user; never silently change values.
 6. For external sites, create or update `docs/external/<service>.md`.
@@ -89,6 +89,6 @@ Nobody can grep the far end of an external coupling, so the repo needs a record 
 
 ## Changing a tagged value or block
 
-1. Run `grep -rn 'COUPLED:<key>\.'` and read every site.
+1. Run `grep --recursive --line-number 'COUPLED:<key>\.'` and read every site.
 2. Change all the sites together, so every relation still holds.
 3. For external sites, tell the user what to change outside the repo, and update the external doc.

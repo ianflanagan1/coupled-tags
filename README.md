@@ -1,6 +1,6 @@
 # COUPLED tags
 
-A comment convention for code and values that must change together but can't share a single source of truth. Each place gets a greppable tag, so whoever changes one can run `grep -rn 'COUPLED:<key>\.'` and find the others.
+A comment convention for code and values that must change together but can't share a single source of truth. Each place gets a greppable tag, so whoever changes one can run `grep --recursive --line-number 'COUPLED:<key>\.'` and find the others.
 
 It ships with a lint script and a Claude Code skill.
 
@@ -138,7 +138,7 @@ sh path/to/coupled-tags-lint.sh -l         # also list every key and its sites
 sh path/to/coupled-tags-lint.sh -x docs/   # exclude a path prefix (repeatable)
 ```
 
-In a git work tree it scans tracked files plus untracked files that aren't ignored. Elsewhere it uses `grep -r`, skipping `.git`, `node_modules` and `vendor`. The skill directory containing the script is always excluded, so a copy vendored into a repo doesn't flag its example tags. It exits with 0 when clean, 1 when it finds problems, and 2 on a usage error.
+In a git work tree it scans tracked files plus untracked files that aren't ignored. Elsewhere it uses `grep --recursive`, skipping `.git`, `node_modules` and `vendor`. The skill directory containing the script is always excluded, so a copy vendored into a repo doesn't flag its example tags. It exits with 0 when clean, 1 when it finds problems, and 2 on a usage error.
 
 It does **not** check that changes to a key touch every site. Diff-aware enforcement in the style of Google's `LINT.IfChange` is out of scope.
 
@@ -174,7 +174,7 @@ The convention and the lint script don't depend on any agent. `skills/ianf-coupl
 
   ```
   Code and values that must change together are tagged `COUPLED:<key>. <relation>` in comments.
-  Before changing anything tagged `COUPLED:<key>.`, run `grep -rn 'COUPLED:<key>\.'`, read every site,
+  Before changing anything tagged `COUPLED:<key>.`, run `grep --recursive --line-number 'COUPLED:<key>\.'`, read every site,
   and update them together so every relation still holds. Never silently change a value to satisfy a relation; report violations.
   ```
 
